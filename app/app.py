@@ -1,6 +1,15 @@
-from flask import Flask
+from flask import Flask as _Flask
+from flask.json import JSONEncoder as _JSONEncoder
 
 __auth__ = 'fuhz'
+
+
+class JSONEncoder(_JSONEncoder):
+    def default(self, o):
+        return dict(o)
+
+class Flask(_Flask):
+    json_encoder = JSONEncoder
 
 
 def register_blueprint(app):

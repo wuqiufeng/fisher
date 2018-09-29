@@ -1,3 +1,5 @@
+from datetime import date
+
 from sqlalchemy import Integer, SmallInteger, String, Column
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -16,12 +18,9 @@ class User(Base):
     _password = Column('password', String(128), comment="密码")
 
 
+    # 对象序列化
     def keys(self):
         return ['id', 'email', 'nickname', 'auth']
-
-    def __getattr__(self, item):
-        return getattr(self, item)
-
 
     @property
     def password(self):

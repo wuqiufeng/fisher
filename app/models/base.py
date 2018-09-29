@@ -61,6 +61,7 @@ class Base(db.Model):
     def __init__(self):
         self.create_time = int(datetime.now().timestamp())
 
+    # 对象字典化
     def __getitem__(self, item):
         return getattr(self, item)
 

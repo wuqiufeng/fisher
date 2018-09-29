@@ -15,7 +15,6 @@ class JSONEncoder(_JSONEncoder):
             return dict(o)
 
         if isinstance(o, date):
-            print(o.strftime('%Y-%m-%d'))
             return o.strftime('%Y-%m-%d')
         raise ServerError()
 

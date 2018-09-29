@@ -9,5 +9,5 @@ class ClientTypeEnum(Enum):
 
     # 微信小程序
     USER_MINA = 200
-    # 微信公众号
+    # 微信公众号ClientTypeEnum
     USER_WX = 201

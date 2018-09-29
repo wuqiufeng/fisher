@@ -18,8 +18,7 @@ def framework_error(e):
         error_code = 1007
         return APIException(msg, code, error_code)
     else:
-        # 调试
-        # log
+        # 调试 log
         if not app.config['DEBUG']:
             return ServerError()
         else:

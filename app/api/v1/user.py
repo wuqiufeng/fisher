@@ -60,10 +60,4 @@ def delete_user():
 
 
 
-@api.route('', methods=['POST'])
-def create_user():
-    return 'create_user fuhz'
-
-
-
 

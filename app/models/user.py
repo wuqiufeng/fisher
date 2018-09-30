@@ -17,6 +17,8 @@ class User(Base):
     nickname = Column(String(24), nullable=False, comment="昵称")
     _password = Column('password', String(128), comment="密码")
 
+    def __repr__(self):
+        return '<User %r>' % self.usernam
 
     # 对象序列化
     def keys(self):

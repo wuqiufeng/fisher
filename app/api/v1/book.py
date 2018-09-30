@@ -1,6 +1,9 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
+from sqlalchemy import or_
 
 from app.libs.redprint import Redprint
+from app.models.book import Book
+from app.validator.forms import BookSearchForm
 
 __auth__ = 'fuhz'
 
@@ -9,10 +12,19 @@ __auth__ = 'fuhz'
 
 api = Redprint('book')
 
-@api.route('/get')
-def get_book():
-    return "book"
 
+@api.route('/search', methods=['GET'])
+def search():
+    form = BookSearchForm().validate_for_api()
+    q = '%' + form.q.data + '%'
+    # book = Book()
+    # 元类 ORM
+    books = Book.query.filter(
+        or_(Book.title.like(q), Book.publisher.like(q))).all()
+    books = [book.hide('summary') for book in books]
+    return jsonify(books)
 
-def create_book():
-    return 'create book'
+@api.route('/<isbn>/detail', methods=['GET'])
+def detail(isbn):
+    book = Book.query.filter_by(isbn=isbn).first_or_404()
+    return jsonify(book)

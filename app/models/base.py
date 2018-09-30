@@ -70,12 +70,26 @@ class Base(db.Model):
             if hasattr(self, key) and key != 'id':
                 setattr(self, key, value)
 
-    def delete(self):
-        self.status = 0
-
     @property
     def create_datetime(self):
         if self.create_time:
             return datetime.fromtimestamp(self.create_time)
         else:
             return None
+
+    def delete(self):
+        self.status = 0
+
+    def keys(self):
+        return self.fields
+
+    # 隐藏key
+    def hide(self, *keys):
+        for key in keys:
+            self.fields.remove(key)
+        return self
+
+    def append(self, *keys):
+        for key in keys:
+            self.fields.append(key)
+        return self
